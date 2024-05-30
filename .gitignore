@@ -131,3 +131,5 @@ dmypy.json
 # rust
 Cargo.lock
 *.rs.bk
+
+.vscode/
