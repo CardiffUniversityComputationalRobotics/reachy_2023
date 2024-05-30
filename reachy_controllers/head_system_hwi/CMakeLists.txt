@@ -29,7 +29,7 @@ target_include_directories(
 )
 
 add_library(head_hwi STATIC IMPORTED)
-set_property(TARGET head_hwi PROPERTY IMPORTED_LOCATION $ENV{PWD}/../../install/head_hwi/lib/head_hwi/libhead_hwi.a )
+set_property(TARGET head_hwi PROPERTY IMPORTED_LOCATION $ENV{_colcon_cd_root}/install/lib/head_hwi/libhead_hwi.a )
 
 target_link_libraries(
     ${PROJECT_NAME}

@@ -29,7 +29,7 @@ target_include_directories(
 )
 
 add_library(arm_hwi STATIC IMPORTED)
-set_property(TARGET arm_hwi PROPERTY IMPORTED_LOCATION $ENV{PWD}/../../install/arm_hwi/lib/arm_hwi/libarm_hwi.a )
+set_property(TARGET arm_hwi PROPERTY IMPORTED_LOCATION $ENV{_colcon_cd_root}/install/lib/arm_hwi/libarm_hwi.a )
 
 target_link_libraries(
     ${PROJECT_NAME}
