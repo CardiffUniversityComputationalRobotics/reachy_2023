@@ -1,9 +1,10 @@
 from functools import partial
 import yaml
 import os
+from launch_ros.substitutions import FindPackageShare
 
-
-config_file = os.path.expanduser("~/.reachy.yaml")
+reachy_utils_dir = FindPackageShare(package="reachy_utils").find("reachy_utils")
+config_file = os.path.expanduser(reachy_utils_dir + "/.reachy.yaml")
 
 
 def get_reachy_config():
