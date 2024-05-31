@@ -11,7 +11,9 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def launch_setup(context, *args, **kwargs):
+
     robot_config = LaunchConfiguration("robot_config", default="full_kit")
+    world = LaunchConfiguration("world")
 
     # Launch Gazebo
     gazebo = IncludeLaunchDescription(
@@ -24,7 +26,10 @@ def launch_setup(context, *args, **kwargs):
                 ]
             )
         ),
-        launch_arguments={"verbose": "false"}.items(),
+        launch_arguments={
+            "world": world,
+            "verbose": "false",
+        }.items(),
     )
 
     # Note: Environment variable GAZEBO_MODEL_PATH is extended as in
@@ -39,8 +44,10 @@ def launch_setup(context, *args, **kwargs):
             "robot_description",
             "-entity",
             LaunchConfiguration("robot_name"),
-            # "-x","3.6",
-            # "-y","2.1",
+            "-x",
+            "5.0",
+            "-y",
+            "2.0",
             "-z",
             "0.084",
         ],
@@ -63,6 +70,10 @@ def launch_setup(context, *args, **kwargs):
 
 def generate_launch_description():
 
+    cucr_worlds_small_house_dir = FindPackageShare(package="cucr_worlds_house").find(
+        "cucr_worlds_house"
+    )
+
     return LaunchDescription(
         [
             DeclareLaunchArgument(
@@ -72,6 +83,11 @@ def generate_launch_description():
                 "robot_config",
                 default_value="full_kit",
                 description="Robot configuration.",
+            ),
+            DeclareLaunchArgument(
+                "world",
+                default_value=[cucr_worlds_small_house_dir + "/worlds/house.world"],
+                description="Path of the world to show.",
             ),
             OpaqueFunction(function=launch_setup),
         ]
