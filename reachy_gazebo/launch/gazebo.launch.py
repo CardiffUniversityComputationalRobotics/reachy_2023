@@ -45,9 +45,9 @@ def launch_setup(context, *args, **kwargs):
             "-entity",
             LaunchConfiguration("robot_name"),
             "-x",
-            "5.0",
+            LaunchConfiguration("x_pose"),
             "-y",
-            "2.0",
+            LaunchConfiguration("y_pose"),
             "-z",
             "0.084",
         ],
@@ -70,9 +70,9 @@ def launch_setup(context, *args, **kwargs):
 
 def generate_launch_description():
 
-    cucr_worlds_small_house_dir = FindPackageShare(package="cucr_worlds_house").find(
-        "cucr_worlds_house"
-    )
+    cucr_worlds_small_house_dir = FindPackageShare(
+        package="cucr_worlds_small_house"
+    ).find("cucr_worlds_small_house")
 
     return LaunchDescription(
         [
@@ -86,8 +86,20 @@ def generate_launch_description():
             ),
             DeclareLaunchArgument(
                 "world",
-                default_value=[cucr_worlds_small_house_dir + "/worlds/house.world"],
+                default_value=[
+                    cucr_worlds_small_house_dir + "/worlds/small_house.world"
+                ],
                 description="Path of the world to show.",
+            ),
+            DeclareLaunchArgument(
+                "x_pose",
+                default_value="0",
+                description="X position for robot spawn.",
+            ),
+            DeclareLaunchArgument(
+                "y_pose",
+                default_value="0",
+                description="Y position for robot spawn.",
             ),
             OpaqueFunction(function=launch_setup),
         ]
